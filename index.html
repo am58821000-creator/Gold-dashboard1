@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jawhara Jewellery - Gold Prices</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 { font-size: 2rem; margin-bottom: 10px; }
+        .price { font-size: 1.2rem; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Jawhara Jewellery</h1>
+    <div id="prices">
+        <div class="price" id="gold24">24K: Loading...</div>
+        <div class="price" id="gold22">22K: Loading...</div>
+        <div class="price" id="gold21">21K: Loading...</div>
+        <div class="price" id="gold18">18K: Loading...</div>
+    </div>
+    <script>
+        const API_URL = "https://your-worker-url.workers.dev"; // هتحط هنا رابط Worker النهائي
 
+        async function fetchPrices() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                document.getElementById("gold24").innerText = `24K: ${data.prices["24"]} KD`;
+                document.getElementById("gold22").innerText = `22K: ${data.prices["22"]} KD`;
+                document.getElementById("gold21").innerText = `21K: ${data.prices["21"]} KD`;
+                document.getElementById("gold18").innerText = `18K: ${data.prices["18"]} KD`;
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        fetchPrices();
+        setInterval(fetchPrices, 10000); // تحديث كل 10 ثواني
+    </script>
+</body>
+</html>
